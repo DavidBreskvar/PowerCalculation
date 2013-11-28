@@ -1,0 +1,57 @@
+<html>
+	<head>
+		<title>test</title>
+	</head>
+	<body>
+	<script language="javascript">
+	function calculate(form) {
+	form.rez.value="0";
+	var ploscina =form.ploscina.value;
+	var visina =form.visina.value;
+	var isolation=form.isolation.checked;
+	var	nOseb=form.nOseb.value; 
+	var nNaprav=form.nNaprav.value;
+	var volumen;
+	var hladilnaMoc;
+	var mocNaprav;
+	var koncnaMoc;
+	var potrebnaMoc;
+	
+	if (visina.indexOf(",") > -1) { 
+		visina = visina.replace(/,/, "."); 
+	}
+	var newHeight = parseFloat(visina);
+	
+	if (ploscina.indexOf(",") > -1) { 
+		ploscina = ploscina.replace(/,/, "."); 
+	}
+	var newSurface = parseFloat(ploscina);
+	
+	mocNaprav = nNaprav*50;
+	hladilnaMoc = nOseb*100;
+	volumen = newSurface*newHeight;
+	if (isolation) {
+		potrebnaMoc = volumen*35;
+	} else {
+		potrebnaMoc = volumen*25;
+	}
+	form.rez.value="1"
+	koncnaMoc = mocNaprav+hladilnaMoc+potrebnaMoc;
+	koncnaMoc = koncnaMoc/1000;
+	koncnaMoc = Math.round(koncnaMoc*10)/10
+	form.rez.value=koncnaMoc;
+	return koncnaMoc;
+}
+	</script>
+		<form name="izracun" action="" method="GET">
+		Kvadratura:<input type="text" name="ploscina"/><br />
+		Visina stropa:<input type="text" name="visina" /><br />
+		Slaba izolacija?<input type="checkbox" name="isolation" /><br />
+		Stevilo oseb v prostoru:<input type="text" name="nOseb" /><br />
+		Stevilo naprav v prostoru:<input type="text" name="nNaprav" /><br />
+		<input type="button" name="submit" value="Izracunaj" onClick="calculate(this.form)"/>
+		<input type="text" name="rez" /> <br />
+		</form>
+	
+	</body>
+</html>
